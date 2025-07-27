@@ -1,5 +1,23 @@
-(kicad_sch (version 20231120) (generator "eeschema") (generator_version "8.0")
-  (paper "A4")
-  (lib_symbols)
-  (symbol_instances)
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "a41dd282-6dc7-4b86-8bbc-5548a3d46efe")
+	(paper "A4")
+	(lib_symbols)
+	(text "The goal of this project is to use an ESP32 C3 module, powered over USBC\nthe module will listen to audio over the MEMS microphone\nonce the module hears a user say the activation phrase, we will begin recording\nonce the user has been quiet for over 2 seconds, we make an api call to google flash lite to transcribe and get the answers to the questions\nonce we have the answers (in JSON) we can make a second API call to 11 labs to generate the audio for playback\nonce we recieve the audio for playback, we can play the audio, and control the fish\nif we are talking, open and close the fish's mouth\nif we are about to talk, turn the fish to face the user\nif we are done talking, turn back to face the wall\nif we are pausing, then make sure to close our mouth\nwe should not listen through the microphone while we are talking\n\nuseful links:\nhttps://youtu.be/a936wNgtcRA?si=EjfysEfpgQNcMlcq&t=467\nwe need to add a mic, and using the 11 labs api we can create an audio stream to play from"
+		(exclude_from_sim no)
+		(at 81.026 36.83 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "60fae3d6-b7a7-4d33-ae99-121257df2708")
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
 )
