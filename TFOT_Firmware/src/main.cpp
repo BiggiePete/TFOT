@@ -5,6 +5,8 @@
 #include "mel.h"
 #include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
 #include <tensorflow/lite/micro/tflite_bridge/micro_error_reporter.h>
+#include "WiFi.h"
+#include "config.h"
 // #include "secrets.h"
 
 // --- IMPORTANT: CHOOSE YOUR MODEL ---
@@ -69,11 +71,24 @@ void setup()
   error_reporter->Report("Setup complete. Model is ready for inference.");
 
   // begin setting up MEMS microphone using I2S
+
+  // begin connecting to wireless network
+  WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
+
+  // make callback to make sure to re-connect on disconnect
+  WiFi.onEvent([](WiFiEvent_t event, WiFiEventInfo_t info)
+               {
+    if (event == WiFiEvent_t::ARDUINO_EVENT_WIFI_AP_STADISCONNECTED) {
+      WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
+    } });
 }
 
 void loop()
 {
   // put your main code here, to run repeatedly:
+
+  // we will listen through the microphone and run inference on the audio data
+  // once we have a keyword detected, we will record for 7s, or we find some way to stream audio to google gemini, then ask for the structured output
 }
 
 void RunInference(float *feature_buffer)

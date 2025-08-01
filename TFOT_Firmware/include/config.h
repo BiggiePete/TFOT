@@ -4,4 +4,7 @@
 #define I2S_PORT I2S_NUM_0
 #define I2S_SAMPLE_RATE 16000
 
+#define WIFI_NAME "your_ssid"
+#define WIFI_PASSWORD "your_password"
+
 #endif /* B33A5DBE_30EB_412D_B5EA_4BE974D7CC31 */
