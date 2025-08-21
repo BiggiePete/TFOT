@@ -169,15 +169,26 @@ class TTSGenerator:
                 return self._synthesize_pyttsx3(text, output_path)
             return None
 
-    def _synthesize_vits_transformers(self, text: str, output_path: str) -> str:
-        """Synthesize using VITS via Hugging Face transformers"""
+    def _synthesize_vits_transformers(
+        self,
+        text: str,
+        output_path: str,
+        noise_scale: float = 0.667,
+        noise_scale_duration: float = 0.8,
+    ) -> str:
+        """Synthesize using VITS via Hugging Face transformers with variance control"""
         try:
             # Tokenize input text
             inputs = self.vits_tokenizer(text, return_tensors="pt")
 
-            # Generate speech
+            # Generate speech with adjustable noise parameters
             with torch.no_grad():
-                outputs = self.vits_model(**inputs)
+                # The forward pass of the VitsModel can accept these noise parameters
+                outputs = self.vits_model(
+                    **inputs,
+                    noise_scale=noise_scale,
+                    noise_scale_duration=noise_scale_duration,
+                )
                 waveform = outputs.waveform.squeeze().cpu().numpy()
 
             # Normalize audio
